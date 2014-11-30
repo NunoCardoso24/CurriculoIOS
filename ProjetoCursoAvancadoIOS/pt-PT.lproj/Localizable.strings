@@ -1,0 +1,28 @@
+/* 
+  Localizable.strings
+  ProjetoCursoAvancadoIOS
+
+  Created by Nuno Cardoso on 08/11/14.
+  Copyright (c) 2014 Nuno Cardoso. All rights reserved.
+*/
+
+// **************   Portugues  **************
+
+// ---- Launch ----
+
+LaunchTap="Toque para Avançar";
+
+
+// ---- Menu ----
+
+AboutMeTitle="Sobre Mim";
+ContactsTitle="Contatos";
+ExperienceTitle="Experiência profissional";
+SkillTitle="Competências";
+CVTitle="CV's";
+FormationTitle="Formação";
+
+
+// ---- Skill Detail ---
+
+SkillDetailtxtPlaceholder="Nome da competência";

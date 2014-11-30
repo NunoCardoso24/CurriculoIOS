@@ -1,0 +1,24 @@
+
+/* Class = "IBUILabel"; text = "ViewController 3"; ObjectID = "1fM-s4-MYm"; */
+"1fM-s4-MYm.text" = "ViewController 3";
+
+/* Class = "IBUILabel"; text = "Hi there!"; ObjectID = "D6w-L1-V8P"; */
+"D6w-L1-V8P.text" = "Hi there!";
+
+/* Class = "IBUIViewController"; title = "VC4"; ObjectID = "E5u-h0-wyp"; */
+"E5u-h0-wyp.title" = "VC4";
+
+/* Class = "IBUIButton"; normalTitle = "Push"; ObjectID = "ET8-Ed-4jh"; */
+"ET8-Ed-4jh.normalTitle" = "Push";
+
+/* Class = "IBUIViewController"; title = "Contacts"; ObjectID = "FdN-fa-xmr"; */
+"FdN-fa-xmr.title" = "Contacts";
+
+/* Class = "IBUIViewController"; title = "VC3"; ObjectID = "GXb-qz-bHl"; */
+"GXb-qz-bHl.title" = "VC3";
+
+/* Class = "IBUILabel"; text = "ViewController 4"; ObjectID = "Lhn-IS-UgW"; */
+"Lhn-IS-UgW.text" = "ViewController 4";
+
+/* Class = "IBUINavigationItem"; title = "main"; ObjectID = "WP0-qZ-ea2"; */
+"WP0-qZ-ea2.title" = "main";
