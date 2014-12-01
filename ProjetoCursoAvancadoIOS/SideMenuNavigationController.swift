@@ -46,7 +46,8 @@ class SideMenuNavigationController: UINavigationController, SideMenuProtocol{
         self.sideMenu?.toggleMenu()
         
         //contentViewController.navigationItem.hidesBackButton = true
-        self.setViewControllers([contentViewController], animated: true)
+        
+            self.setViewControllers([contentViewController], animated: true)
     }
     
     

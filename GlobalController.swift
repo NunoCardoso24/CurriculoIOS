@@ -12,7 +12,9 @@ class GlobalController:UIViewController, UIViewControllerTransitioningDelegate, 
      var menuButton: MenuButton!
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController!.delegate = self
+        if let nav = self.navigationController {
+            self.navigationController!.delegate = self
+        }
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "rotated", name: UIDeviceOrientationDidChangeNotification, object: nil)
 

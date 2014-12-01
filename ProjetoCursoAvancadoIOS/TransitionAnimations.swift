@@ -230,12 +230,12 @@ public class TransitionAnimations
         transitionContext.containerView().insertSubview(bottomView, aboveSubview: toVC.view)
         
 
-        UIView.animateWithDuration(3, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: .CurveEaseIn, animations: {
+        UIView.animateWithDuration(2, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: .CurveEaseIn, animations: {
             topView.frame.origin.y = -fromVC.view.frame.size.height/2-70
             }, completion: {_ in
-               // transitionContext.completeTransition(!transitionContext.transitionWasCancelled())
+               transitionContext.completeTransition(!transitionContext.transitionWasCancelled())
         })
-        UIView.animateWithDuration(3, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: .CurveEaseIn, animations: {
+        UIView.animateWithDuration(2, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: .CurveEaseIn, animations: {
             bottomView.frame.origin.y = fromVC.view.frame.size.height+70
             }, completion: {_ in
                 bottomView.hidden = true

@@ -7,24 +7,26 @@
 //
 
 import UIKit
-class CompetenciasController: GlobalController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UISearchBarDelegate, UISearchDisplayDelegate {
+
+
+class CompetenciasController: GlobalController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UISearchBarDelegate, UISearchDisplayDelegate, CompetenciasDetailViewControllerDelegate {
     
     @IBOutlet weak var viewFlowLayout: TLSpringFlowLayout!
     @IBOutlet weak var collectionView: UICollectionView!
 
+    var selectedItem:(index: NSIndexPath, skill: Skills.Skill)?
     var skills: [Skills.Skill]?
-    
     var filteredSkills: [Skills.Skill]?
     
     /** IndexPath of a selected item if any or nil. */
-    var selectedItemIndexPath: NSIndexPath?
+    //var selectedItemIndexPath: NSIndexPath?
     
-    func selectedItem() -> Skills.Skill {
+    /*func selectedItem() -> Skills.Skill {
         if let indexPath = selectedItemIndexPath {
             return self.skills?[indexPath.row] as Skills.Skill!
         }
         return Skills.Skill(skillName: "", nStars: 0)
-    }
+    }*/
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,6 +46,10 @@ class CompetenciasController: GlobalController, UICollectionViewDelegateFlowLayo
 
 
         self.view.addSubview(collectionView!)
+        
+        
+        
+        selectedItem = (NSIndexPath(index: 0), self.skills?[0] as Skills.Skill!)
     }
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         return 1
@@ -96,20 +102,45 @@ class CompetenciasController: GlobalController, UICollectionViewDelegateFlowLayo
     }
 
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        selectedItemIndexPath = indexPath
+       // selectedItemIndexPath = indexPath
+        selectedItem!.index = indexPath
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         let controller = segue.destinationViewController as CompetenciasDetailViewController
-        
+        controller.delegate = self
         var indexPaths = self.collectionView.indexPathForCell(sender as UICollectionViewCell)
         if let index = indexPaths {
-            controller.item = self.skills?[index.row] as Skills.Skill!
+            controller.detailItem = self.skills?[index.row] as Skills.Skill!
         }
+    }
+    
+ 
+    // MARK: DetailViewControllerDelegate
+    
+    func detailViewController(controller: CompetenciasDetailViewController, didFinishWithUpdatedItem item: Skills.Skill) {
+        // Did user edit an item, or added a new item?
+      
+        setSkillAtIndex(selectedItem!.index.row, item: item)
+        collectionView.reloadData()
+        
+        let defaults = NSUserDefaults.standardUserDefaults()
+        var key = "listSkills"
+        
+        defaults.setObject(NSKeyedArchiver.archivedDataWithRootObject(skills!), forKey: key)
+        
+        defaults.synchronize()
+
+    }
+    func setSkillAtIndex(index: Int, item: Skills.Skill){
+        skills![index].nStars = item.nStars
+        skills![index].skillName = item.skillName
+
     }
     
     // MARK: - Search
     
+
     func filterContentForSearchText(searchText: String, scope: String = "All") {
         self.filteredSkills = self.skills!.filter({( candy : Skills.Skill) -> Bool in
             var categoryMatch = (scope == "All") || (candy.skillName == scope)

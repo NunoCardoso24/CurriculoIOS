@@ -9,23 +9,28 @@
 
 import UIKit
 
-
-class CompetenciasDetailViewController: UIViewController {
-    var item: Skills.Skill?
+protocol CompetenciasDetailViewControllerDelegate : class {
+    func detailViewController(controller: CompetenciasDetailViewController, didFinishWithUpdatedItem item: Skills.Skill)
+}
+class CompetenciasDetailViewController: UIViewController, UITextFieldDelegate  {
+    var detailItem: Skills.Skill?
     
     @IBOutlet weak var txtSkill: UITextField!
+    
+    //Notificar que o item foi alterado ao ListViewController
+    var delegate: CompetenciasDetailViewControllerDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.ViewBackground()        
         
         txtSkill.placeholder = NSLocalizedString("SkillDetailtxtPlaceholder" ,comment: "Skill Name")
-        txtSkill.text = item?.skillName
+        txtSkill.text = detailItem?.skillName
         
         var estrela: UIButton
         for i in 1..<6{
             estrela = self.view.viewWithTag(i) as UIButton
-            estrela.setImage(UIImage(named: i<=item?.nStars ? "star-highlighted.png" : "star.png"), forState: UIControlState.Normal)
+            estrela.setImage(UIImage(named: i<=detailItem?.nStars ? "star-highlighted.png" : "star.png"), forState: UIControlState.Normal)
         }
     }
     @IBAction func starClicked(sender: UIButton) {
@@ -43,5 +48,16 @@ class CompetenciasDetailViewController: UIViewController {
             
           //  estrela.setImage(UIImage(named: i<=tag ? "star-highlighted.png" : "star.png"), forState: UIControlState.Normal)
         }
+        detailItem?.nStars = tag
+        delegate?.detailViewController(self, didFinishWithUpdatedItem: detailItem!)
     }
+    
+    func textFieldShouldReturn(textField: UITextField!) -> Bool {
+        userActivity?.invalidate()
+        textField.resignFirstResponder()
+        detailItem?.skillName = txtSkill.text
+        delegate?.detailViewController(self, didFinishWithUpdatedItem: detailItem!)
+        return true
+    }
+    
 }

@@ -71,7 +71,7 @@ class Skills:NSObject {
         let defaults = NSUserDefaults.standardUserDefaults()
         var key = "listSkills"
         
-        var array1: [Skills.Skill] = Skills.defaultSkills.defaultSkills
+        var array1: [Skill] = defaultSkills.defaultSkills
         defaults.setObject(NSKeyedArchiver.archivedDataWithRootObject(array1), forKey: key)
         
         defaults.setBool(true, forKey: "HasLaunchedOnce")
