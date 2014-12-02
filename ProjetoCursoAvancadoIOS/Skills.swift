@@ -21,6 +21,7 @@ class Skills:NSObject {
     }
     
     var listSkills:[Skill]?
+    
     struct defaultSkills {
         static var defaultSkills:[Skill] =
         [
@@ -46,7 +47,10 @@ class Skills:NSObject {
     }
     
     required init(coder aDecoder: NSCoder) {
-        listSkills = aDecoder.decodeObjectOfClass(NSArray.self, forKey: "listSkills") as? [Skill]
+    super.init()
+        self.getSkills(){skills in
+            self.listSkills = skills as? [Skills.Skill]
+        }
     }
     
     class Skill:NSObject {
@@ -85,7 +89,19 @@ class Skills:NSObject {
         
         var data = defaults.objectForKey(key) as NSData
         var savedArray = NSKeyedUnarchiver.unarchiveObjectWithData(data) as NSArray
+        listSkills = savedArray as? [Skills.Skill]
+        
         skills(savedArray)
     }
-    
+    func searchSkills(searchFor: NSString) -> [Skill] {
+        if(searchFor == ""){
+            return listSkills!
+        }
+        var filteredSkills: [Skill]
+        filteredSkills = listSkills!.filter({ s1 -> Bool in
+            var str = s1.skillName as NSString
+            return str.localizedCaseInsensitiveContainsString(searchFor)
+        })
+        return filteredSkills
+    }
 }

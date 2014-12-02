@@ -54,9 +54,5 @@ class GlobalController:UIViewController, UIViewControllerTransitioningDelegate, 
     
     func rotated(){
         SideMenu.Static.instance?.updateFrame()
-    }
-    
-    
-    
-    
+    }  
 }

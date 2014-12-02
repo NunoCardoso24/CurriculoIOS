@@ -19,9 +19,14 @@ class CompetenciasDetailViewController: UIViewController, UITextFieldDelegate  {
     
     //Notificar que o item foi alterado ao ListViewController
     var delegate: CompetenciasDetailViewControllerDelegate?
-
+    
+    
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+    
     override func viewDidLoad() {
-        super.viewDidLoad()
+            NSNotificationCenter.defaultCenter().addObserver(self, selector: "textFieldTextDidChange:", name: UITextFieldTextDidChangeNotification, object: nil)
         self.view.backgroundColor = UIColor.ViewBackground()        
         
         txtSkill.placeholder = NSLocalizedString("SkillDetailtxtPlaceholder" ,comment: "Skill Name")
@@ -32,6 +37,7 @@ class CompetenciasDetailViewController: UIViewController, UITextFieldDelegate  {
             estrela = self.view.viewWithTag(i) as UIButton
             estrela.setImage(UIImage(named: i<=detailItem?.nStars ? "star-highlighted.png" : "star.png"), forState: UIControlState.Normal)
         }
+        super.viewDidLoad()
     }
     @IBAction func starClicked(sender: UIButton) {
         var tag = sender.tag
@@ -49,6 +55,12 @@ class CompetenciasDetailViewController: UIViewController, UITextFieldDelegate  {
           //  estrela.setImage(UIImage(named: i<=tag ? "star-highlighted.png" : "star.png"), forState: UIControlState.Normal)
         }
         detailItem?.nStars = tag
+        delegate?.detailViewController(self, didFinishWithUpdatedItem: detailItem!)
+    }
+    // MARK: UITextFieldDelegate
+    
+    func textFieldTextDidChange(notification: NSNotification) {
+        detailItem?.skillName = txtSkill.text
         delegate?.detailViewController(self, didFinishWithUpdatedItem: detailItem!)
     }
     

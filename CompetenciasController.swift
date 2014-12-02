@@ -9,13 +9,13 @@
 import UIKit
 
 
-class CompetenciasController: GlobalController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UISearchBarDelegate, UISearchDisplayDelegate, CompetenciasDetailViewControllerDelegate {
+class CompetenciasController: GlobalController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, CompetenciasDetailViewControllerDelegate, UITextFieldDelegate {
     
+    @IBOutlet weak var txtSearch: UITextField!
     @IBOutlet weak var viewFlowLayout: TLSpringFlowLayout!
     @IBOutlet weak var collectionView: UICollectionView!
 
-    var selectedItem:(index: NSIndexPath, skill: Skills.Skill)?
-    var skills: [Skills.Skill]?
+    var selectedItem: (index: NSIndexPath, skill: Skills.Skill)?
     var filteredSkills: [Skills.Skill]?
     
     /** IndexPath of a selected item if any or nil. */
@@ -28,15 +28,22 @@ class CompetenciasController: GlobalController, UICollectionViewDelegateFlowLayo
         return Skills.Skill(skillName: "", nStars: 0)
     }*/
     
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         navigationItem.title = NSLocalizedString("SkillTitle" , comment: SkillsC)
         
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "textFieldTextDidChange:", name: UITextFieldTextDidChangeNotification, object: nil)
+
         updateCellsLayout()
         Skills.current.getSkills(){skills in
-            self.skills = skills as? [Skills.Skill]
             self.filteredSkills = skills as? [Skills.Skill]
+            self.selectedItem = (NSIndexPath(index: 0), self.filteredSkills?[0] as Skills.Skill!)
+
             self.collectionView?.reloadData()
         }
         collectionView!.dataSource = self
@@ -48,15 +55,17 @@ class CompetenciasController: GlobalController, UICollectionViewDelegateFlowLayo
         self.view.addSubview(collectionView!)
         
         
-        
-        selectedItem = (NSIndexPath(index: 0), self.skills?[0] as Skills.Skill!)
+        txtSearch.textColor = UIColor.NavigationBarTint()
+        txtSearch.backgroundColor = UIColor.NavigationBarSearchBackground()
+        txtSearch.attributedPlaceholder = NSAttributedString(string: NSLocalizedString("SearchPlaceholder" ,comment: "Search"),
+            attributes:[NSForegroundColorAttributeName: UIColor.NavigationBarTint()])
     }
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         return 1
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if let skills = self.skills {
+        if let skills = self.filteredSkills {
             return skills.count
         }
         return 0
@@ -65,7 +74,7 @@ class CompetenciasController: GlobalController, UICollectionViewDelegateFlowLayo
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("CollectionViewCell", forIndexPath: indexPath) as SkillCollectionViewCell
         cell.backgroundColor = UIColor.whiteColor()
         
-        if let skill = self.skills?[indexPath.row] as Skills.Skill! {
+        if let skill = self.filteredSkills?[indexPath.row] as Skills.Skill! {
             cell.lbl.text = "\(skill.skillName)"
             for i in 0..<5{
                 cell.estrelas[i].image = UIImage(named: i<skill.nStars ? "star-highlighted.png" : "star.png")
@@ -111,7 +120,7 @@ class CompetenciasController: GlobalController, UICollectionViewDelegateFlowLayo
         controller.delegate = self
         var indexPaths = self.collectionView.indexPathForCell(sender as UICollectionViewCell)
         if let index = indexPaths {
-            controller.detailItem = self.skills?[index.row] as Skills.Skill!
+            controller.detailItem = self.filteredSkills?[index.row] as Skills.Skill!
         }
     }
     
@@ -119,50 +128,68 @@ class CompetenciasController: GlobalController, UICollectionViewDelegateFlowLayo
     // MARK: DetailViewControllerDelegate
     
     func detailViewController(controller: CompetenciasDetailViewController, didFinishWithUpdatedItem item: Skills.Skill) {
-        // Did user edit an item, or added a new item?
-      
+
         setSkillAtIndex(selectedItem!.index.row, item: item)
+        txtSearch.text = ""
+        searchSkills()
         collectionView.reloadData()
         
         let defaults = NSUserDefaults.standardUserDefaults()
         var key = "listSkills"
         
-        defaults.setObject(NSKeyedArchiver.archivedDataWithRootObject(skills!), forKey: key)
+       
+
+        
+        defaults.setObject(NSKeyedArchiver.archivedDataWithRootObject(filteredSkills!), forKey: key)
         
         defaults.synchronize()
-
+        
     }
+    
+    
     func setSkillAtIndex(index: Int, item: Skills.Skill){
-        skills![index].nStars = item.nStars
-        skills![index].skillName = item.skillName
-
+        filteredSkills![index].nStars = item.nStars
+        filteredSkills![index].skillName = item.skillName
     }
-    
-    // MARK: - Search
-    
 
-    func filterContentForSearchText(searchText: String, scope: String = "All") {
-        self.filteredSkills = self.skills!.filter({( candy : Skills.Skill) -> Bool in
-            var categoryMatch = (scope == "All") || (candy.skillName == scope)
-            var stringMatch = candy.skillName.rangeOfString(searchText)
-            return categoryMatch && (stringMatch != nil)
-        })
-    }
-    
-    func searchDisplayController(controller: UISearchDisplayController!, shouldReloadTableForSearchString searchString: String!) -> Bool {
-        let scopes = self.searchDisplayController!.searchBar.scopeButtonTitles as [String]
-        let selectedScope = scopes[self.searchDisplayController!.searchBar.selectedScopeButtonIndex] as String
-        self.filterContentForSearchText(searchString, scope: selectedScope)
+    // MARK : UITextFieldDelegate
+ 
+    func textFieldShouldReturn(textField: UITextField!) -> Bool {
+        searchSkills()
         return true
     }
-    
-    func searchDisplayController(controller: UISearchDisplayController!,
-        shouldReloadTableForSearchScope searchOption: Int) -> Bool {
-            let scope = self.searchDisplayController!.searchBar.scopeButtonTitles as [String]
-            self.filterContentForSearchText(self.searchDisplayController!.searchBar.text, scope: scope[searchOption])
-            return true
+    func searchSkills(textTypeChange: Bool = false){
+        let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
+        txtSearch.addSubview(activityIndicator)
+        activityIndicator.frame = txtSearch.bounds
+        activityIndicator.startAnimating()
+        
+        filterSkills(txtSearch.text) {
+            results in
+            
+            activityIndicator.removeFromSuperview()
+            
+            if results != nil {
+                self.filteredSkills = results
+                self.collectionView?.reloadData()
+                
+            }
+        }
+        if(!textTypeChange){
+            txtSearch.resignFirstResponder()
+        }
     }
     
+    func textFieldTextDidChange(notification: NSNotification) {
+        searchSkills(textTypeChange: true)
+    }
+    
+    func filterSkills(searchString: String, completion : (results: [Skills.Skill]?) -> Void){
+        
+        var searchResult: [Skills.Skill] = Skills.current.searchSkills(searchString)
+       completion(results:searchResult)
+        
+    }
 }
 
 

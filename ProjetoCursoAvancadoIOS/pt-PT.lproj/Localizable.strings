@@ -12,6 +12,7 @@
 
 LaunchTap="Toque para Avançar";
 
+SearchPlaceholder="Procurar";
 
 // ---- Menu ----
 
@@ -21,6 +22,8 @@ ExperienceTitle="Experiência profissional";
 SkillTitle="Competências";
 CVTitle="CV's";
 FormationTitle="Formação";
+
+// ---- Skill List ---
 
 
 // ---- Skill Detail ---

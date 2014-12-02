@@ -128,7 +128,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="wDn-fC-sxx">
-                                <rect key="frame" x="0.0" y="108" width="600" height="492"/>
+                                <rect key="frame" x="0.0" y="64" width="600" height="536"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="8l0-3P-Jpm" customClass="TLSpringFlowLayout">
                                     <size key="itemSize" width="300" height="50"/>
@@ -280,44 +280,36 @@
                                     <outlet property="delegate" destination="I0w-oG-wqc" id="lGv-CB-vpi"/>
                                 </connections>
                             </collectionView>
-                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="Iln-pM-UcU">
-                                <rect key="frame" x="0.0" y="64" width="600" height="44"/>
-                                <textInputTraits key="textInputTraits"/>
-                                <connections>
-                                    <outlet property="delegate" destination="I0w-oG-wqc" id="EuC-Kr-kuO"/>
-                                </connections>
-                            </searchBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="wDn-fC-sxx" firstAttribute="top" secondItem="Iln-pM-UcU" secondAttribute="bottom" id="0O2-eQ-xbB"/>
                             <constraint firstAttribute="trailing" secondItem="wDn-fC-sxx" secondAttribute="trailing" id="6H3-Xv-8IC"/>
-                            <constraint firstAttribute="trailing" secondItem="Iln-pM-UcU" secondAttribute="trailing" id="9JZ-7G-C3Z"/>
                             <constraint firstItem="Kue-Ve-hIh" firstAttribute="top" secondItem="wDn-fC-sxx" secondAttribute="bottom" id="BzI-oH-m6d"/>
                             <constraint firstItem="wDn-fC-sxx" firstAttribute="leading" secondItem="dDC-kv-8iq" secondAttribute="leading" id="HVL-3S-ilr"/>
-                            <constraint firstItem="Iln-pM-UcU" firstAttribute="leading" secondItem="dDC-kv-8iq" secondAttribute="leading" id="bTx-bp-cgg"/>
-                            <constraint firstItem="Iln-pM-UcU" firstAttribute="top" secondItem="t4m-XT-qgE" secondAttribute="bottom" id="e4T-Iv-eoK"/>
-                            <constraint firstItem="wDn-fC-sxx" firstAttribute="top" secondItem="Iln-pM-UcU" secondAttribute="bottom" id="fCG-W8-Smf"/>
+                            <constraint firstItem="wDn-fC-sxx" firstAttribute="top" secondItem="t4m-XT-qgE" secondAttribute="bottom" id="MeR-lc-bCs"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="ysx-eY-Jgz">
+                        <nil key="title"/>
+                        <textField key="titleView" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Search" textAlignment="center" minimumFontSize="17" id="HVT-Aq-AZz">
+                            <rect key="frame" x="180" y="7" width="240" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                            <textInputTraits key="textInputTraits" returnKeyType="search"/>
+                            <connections>
+                                <outlet property="delegate" destination="I0w-oG-wqc" id="WV5-aK-9Yx"/>
+                            </connections>
+                        </textField>
+                    </navigationItem>
                     <connections>
                         <outlet property="collectionView" destination="wDn-fC-sxx" id="8m2-IO-SuN"/>
-                        <outlet property="searchDisplayController" destination="lSP-Zy-1Y7" id="QVw-gi-ZWW"/>
+                        <outlet property="txtSearch" destination="HVT-Aq-AZz" id="3MV-Oe-6GD"/>
                         <outlet property="viewFlowLayout" destination="8l0-3P-Jpm" id="fLm-HR-KMN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tvO-ma-tEV" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <searchDisplayController id="lSP-Zy-1Y7">
-                    <connections>
-                        <outlet property="delegate" destination="I0w-oG-wqc" id="b2S-r7-ppM"/>
-                        <outlet property="searchBar" destination="Iln-pM-UcU" id="sBy-UM-Hwb"/>
-                        <outlet property="searchContentsController" destination="I0w-oG-wqc" id="mYq-SE-3aY"/>
-                        <outlet property="searchResultsDataSource" destination="I0w-oG-wqc" id="ojp-kR-ISl"/>
-                        <outlet property="searchResultsDelegate" destination="I0w-oG-wqc" id="Iox-x7-RSj"/>
-                    </connections>
-                </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="-2862" y="1478"/>
+            <point key="canvasLocation" x="-2050" y="1478"/>
         </scene>
         <!--Competencias Detail View Controller-->
         <scene sceneID="hfC-Bo-Hj6">
@@ -466,7 +458,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SIz-sP-MXb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2220" y="1469"/>
+            <point key="canvasLocation" x="-1408" y="1469"/>
         </scene>
         <!--main-->
         <scene sceneID="tne-QT-ifu">
@@ -645,7 +637,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9EO-g3-xsa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1600" y="837"/>
+            <point key="canvasLocation" x="-788" y="837"/>
         </scene>
         <!--Contacts-->
         <scene sceneID="DP1-VC-gJz">
@@ -665,6 +657,9 @@
                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences" keyboardAppearance="alert"/>
+                                <variation key="heightClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="0.0" y="0.0" width="0.0" height="0.0"/>
+                                </variation>
                                 <variation key="heightClass=regular" fixedFrame="YES">
                                     <rect key="frame" x="0.0" y="0.0" width="0.0" height="0.0"/>
                                 </variation>
@@ -730,7 +725,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zj1-Eq-Ts7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-946" y="837"/>
+            <point key="canvasLocation" x="-134" y="837"/>
         </scene>
         <!--Trait Override View Controller-->
         <scene sceneID="uKT-p3-u6e">
@@ -769,13 +764,31 @@
             <objects>
                 <splitViewController storyboardIdentifier="SplitViewController" id="Od9-2J-dI1" customClass="SplitViewController" customModule="ProjetoCursoAvancadoIOS" customModuleProvider="target" sceneMemberID="viewController">
                     <connections>
-                        <segue destination="I0w-oG-wqc" kind="relationship" relationship="masterViewController" id="Qvr-zK-1Ci"/>
+                        <segue destination="Heg-bX-fiT" kind="relationship" relationship="masterViewController" id="Qvr-zK-1Ci"/>
                         <segue destination="jIB-Y9-XL4" kind="relationship" relationship="detailViewController" id="RfC-oT-iTv"/>
                     </connections>
                 </splitViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="o0m-Di-qcq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-2371" y="767"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="8Ha-9m-awX">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Heg-bX-fiT" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="O5d-qv-7Xr">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="I0w-oG-wqc" kind="relationship" relationship="rootViewController" id="E87-3m-NEQ"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4JG-cU-wIg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2862" y="1478"/>
         </scene>
     </scenes>
     <resources>

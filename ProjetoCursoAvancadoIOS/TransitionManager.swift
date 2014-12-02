@@ -66,7 +66,7 @@ class TransitionsManager :NSObject, UIViewControllerAnimatedTransitioning
     private func animation(fromVC:UIViewController, toVC:UIViewController, transitionContext: UIViewControllerContextTransitioning)
     {
         if(self.action == .Present) {
-            if(toVC is AboutController || toVC is SplitViewController){
+            if(toVC is AboutController){
                 transitionContext.containerView().insertSubview(toVC.view, aboveSubview: fromVC.view)
                 transitionContext.completeTransition(!transitionContext.transitionWasCancelled())
             }else{

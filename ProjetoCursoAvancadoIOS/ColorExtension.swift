@@ -30,4 +30,7 @@ extension UIColor {
     class func NavigationBarBackground() -> UIColor {
         return UIColor(red: 50/255, green: 50/255, blue: 50/255, alpha: 1)
     }
+    class func NavigationBarSearchBackground() -> UIColor {
+        return UIColor(red: 30/255, green: 30/255, blue: 30/255, alpha: 1)
+    }
 }
