@@ -18,7 +18,7 @@ extension UIView {
     
     func Animation(pulseAnimationDuration duration: NSTimeInterval = 0.9, scale: CGFloat = 1.4)
     {
-        UIView.animateWithDuration(duration, delay: 0, options: UIViewAnimationOptions.Autoreverse | UIViewAnimationOptions.Repeat, animations: { () -> Void in
+        UIView.animateWithDuration(duration, delay: 0.2, options: UIViewAnimationOptions.Autoreverse | UIViewAnimationOptions.Repeat, animations: { () -> Void in
             self.transform = CGAffineTransformMakeScale(scale, scale)
             }, completion: nil)
     }

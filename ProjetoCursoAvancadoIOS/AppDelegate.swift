@@ -24,7 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         navigationBarAppearace.backgroundColor = UIColor.whiteColor()
         navigationBarAppearace.barTintColor = UIColor.NavigationBarBackground()
-        
+        UIBarButtonItem.appearance().tintColor = UIColor.NavigationBarTint()
         
         let defaults = NSUserDefaults.standardUserDefaults()
         if(!defaults.boolForKey("HasLaunchedOnce")){

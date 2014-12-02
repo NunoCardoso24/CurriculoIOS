@@ -9,13 +9,14 @@
 import UIKit
 
 class SkillCollectionViewCell: UICollectionViewCell {
-    @IBOutlet weak var lbl: UILabel!
     
-    @IBOutlet private weak var estrela2: UIImageView!
-    @IBOutlet private weak var estrela1: UIImageView!
-    @IBOutlet private weak var estrela3: UIImageView!
-    @IBOutlet private weak var estrela4: UIImageView!
-    @IBOutlet private weak var estrela5: UIImageView!
+    @IBOutlet weak var lbl: UILabel!
+
+    @IBOutlet weak var estrela1: UIImageView!
+    @IBOutlet weak var estrela2: UIImageView!
+    @IBOutlet weak var estrela3: UIImageView!
+    @IBOutlet weak var estrela4: UIImageView!
+    @IBOutlet weak var estrela5: UIImageView!
     var estrelas: [UIImageView]!
     override func awakeFromNib() {
         super.awakeFromNib()

@@ -15,7 +15,7 @@ class LaunchController:UIViewController, UINavigationControllerDelegate{
         
         self.navigationController!.delegate = self
         
-        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: Selector("didTap")))
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: Selector("didTap:")))
         
         self.navigationController!.setNavigationBarHidden(true, animated: true)
         disableSideMenu()
@@ -26,7 +26,7 @@ class LaunchController:UIViewController, UINavigationControllerDelegate{
         middleIcon.roundedView(5.0)
         middleIcon.Animation(pulseAnimationDuration: 0.9)
     }
-    func didTap() {
+    func didTap(recognizer:UITapGestureRecognizer) {
         self.performSegueWithIdentifier("proximo", sender: self)
     }
 

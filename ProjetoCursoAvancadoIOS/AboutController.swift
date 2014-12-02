@@ -26,7 +26,7 @@ class AboutController: GlobalController, UISearchBarDelegate, UISearchDisplayDel
     }
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        enableSideMenu()
+
         
         updateTitlesBackground()
         foto.roundedView(5.0)
@@ -38,7 +38,7 @@ class AboutController: GlobalController, UISearchBarDelegate, UISearchDisplayDel
     }
     override func viewDidAppear(animated: Bool)  {
         super.viewDidAppear(animated)
-        
+        enableSideMenu()
     }
     
     override func didReceiveMemoryWarning() {

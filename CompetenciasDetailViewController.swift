@@ -39,6 +39,10 @@ class CompetenciasDetailViewController: UIViewController, UITextFieldDelegate  {
         }
         super.viewDidLoad()
     }
+    override func viewDidAppear(animated: Bool)  {
+        super.viewDidAppear(animated)
+        
+    }
     @IBAction func starClicked(sender: UIButton) {
         var tag = sender.tag
         var estrela: UIButton

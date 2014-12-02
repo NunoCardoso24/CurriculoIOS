@@ -21,7 +21,6 @@ class GlobalController:UIViewController, UIViewControllerTransitioningDelegate, 
         menuButton = MenuButton()
         menuButton.sourceView=self
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: menuButton)
-        
         self.view.backgroundColor = UIColor.ViewBackground()
         
     }

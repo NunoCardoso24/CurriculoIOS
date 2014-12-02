@@ -15,9 +15,12 @@ class CompetenciasController: GlobalController, UICollectionViewDelegateFlowLayo
     @IBOutlet weak var viewFlowLayout: TLSpringFlowLayout!
     @IBOutlet weak var collectionView: UICollectionView!
 
-    var selectedItem: (index: NSIndexPath, skill: Skills.Skill)?
+    var selectedItem: (index: Int, skill: Skills.Skill)?
     var filteredSkills: [Skills.Skill]?
     
+    
+    let AddItemSegueIdentifier  = "AddItem"
+    let EditItemSegueIdentifier = "EditItem"
     /** IndexPath of a selected item if any or nil. */
     //var selectedItemIndexPath: NSIndexPath?
     
@@ -42,7 +45,7 @@ class CompetenciasController: GlobalController, UICollectionViewDelegateFlowLayo
         updateCellsLayout()
         Skills.current.getSkills(){skills in
             self.filteredSkills = skills as? [Skills.Skill]
-            self.selectedItem = (NSIndexPath(index: 0), self.filteredSkills?[0] as Skills.Skill!)
+            self.selectedItem = (0, self.filteredSkills?[0] as Skills.Skill!)
 
             self.collectionView?.reloadData()
         }
@@ -112,15 +115,24 @@ class CompetenciasController: GlobalController, UICollectionViewDelegateFlowLayo
 
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
        // selectedItemIndexPath = indexPath
-        selectedItem!.index = indexPath
+        selectedItem!.index = indexPath.row
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
+        let identifier = segue.identifier
         let controller = segue.destinationViewController as CompetenciasDetailViewController
         controller.delegate = self
-        var indexPaths = self.collectionView.indexPathForCell(sender as UICollectionViewCell)
-        if let index = indexPaths {
-            controller.detailItem = self.filteredSkills?[index.row] as Skills.Skill!
+
+        if identifier == EditItemSegueIdentifier {
+            var indexPaths = self.collectionView.indexPathForCell(sender as UICollectionViewCell)
+            if let index = indexPaths {
+                controller.detailItem = self.filteredSkills?[index.row] as Skills.Skill!
+            }
+        }else {
+            
+            controller.detailItem = Skills.Skill(skillName: "", nStars: 1)
+            selectedItem = nil
+            
         }
     }
     
@@ -128,22 +140,24 @@ class CompetenciasController: GlobalController, UICollectionViewDelegateFlowLayo
     // MARK: DetailViewControllerDelegate
     
     func detailViewController(controller: CompetenciasDetailViewController, didFinishWithUpdatedItem item: Skills.Skill) {
-
-        setSkillAtIndex(selectedItem!.index.row, item: item)
         txtSearch.text = ""
         searchSkills()
-        collectionView.reloadData()
         
         let defaults = NSUserDefaults.standardUserDefaults()
         var key = "listSkills"
         
-       
+        if let selected = selectedItem? { //edit
+            setSkillAtIndex(selectedItem!.index, item: item)
+        }
+        else {//add
+            filteredSkills!.insert(item, atIndex: 0)
+            self.selectedItem = (0, self.filteredSkills?[0] as Skills.Skill!)
+        }
 
-        
         defaults.setObject(NSKeyedArchiver.archivedDataWithRootObject(filteredSkills!), forKey: key)
         
         defaults.synchronize()
-        
+        collectionView.reloadData()
     }
     
     

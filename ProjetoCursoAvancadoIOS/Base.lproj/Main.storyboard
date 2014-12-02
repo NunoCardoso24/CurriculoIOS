@@ -265,13 +265,13 @@
                                             </mask>
                                         </variation>
                                         <connections>
-                                            <outlet property="estrela1" destination="vfd-FB-4CQ" id="4Nm-89-IQU"/>
-                                            <outlet property="estrela2" destination="5tX-e8-Tb5" id="cLe-iy-JIa"/>
-                                            <outlet property="estrela3" destination="LoO-W0-q0h" id="wb5-3s-gj3"/>
-                                            <outlet property="estrela4" destination="EzG-wr-wJC" id="AOd-t8-vge"/>
-                                            <outlet property="estrela5" destination="9Uz-QY-RMQ" id="9pj-eR-iAH"/>
-                                            <outlet property="lbl" destination="Kdc-OH-PlS" id="sc7-lY-ujB"/>
-                                            <segue destination="jIB-Y9-XL4" kind="show" id="UEI-xb-lHb"/>
+                                            <outlet property="estrela1" destination="vfd-FB-4CQ" id="yiP-0T-8LU"/>
+                                            <outlet property="estrela2" destination="5tX-e8-Tb5" id="1H8-Wc-epz"/>
+                                            <outlet property="estrela3" destination="LoO-W0-q0h" id="kvu-3Y-gqR"/>
+                                            <outlet property="estrela4" destination="EzG-wr-wJC" id="CNT-by-hsQ"/>
+                                            <outlet property="estrela5" destination="9Uz-QY-RMQ" id="MeP-91-JKj"/>
+                                            <outlet property="lbl" destination="Kdc-OH-PlS" id="ScI-bj-MTJ"/>
+                                            <segue destination="jIB-Y9-XL4" kind="show" identifier="EditItem" id="bMx-vY-pHV"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -300,6 +300,11 @@
                                 <outlet property="delegate" destination="I0w-oG-wqc" id="WV5-aK-9Yx"/>
                             </connections>
                         </textField>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="zyL-NR-3of">
+                            <connections>
+                                <segue destination="jIB-Y9-XL4" kind="show" identifier="AddItem" id="Rrs-5c-GIn"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="collectionView" destination="wDn-fC-sxx" id="8m2-IO-SuN"/>
@@ -437,7 +442,9 @@
                             <constraint firstItem="Mrw-fK-Jza" firstAttribute="leading" secondItem="Xz0-j4-XuF" secondAttribute="leadingMargin" id="9gb-ec-sbW"/>
                             <constraint firstItem="zwg-SU-MqW" firstAttribute="top" secondItem="mia-hT-YA6" secondAttribute="bottom" constant="40" id="BIC-ZC-i6b"/>
                             <constraint firstItem="vHU-YC-5hE" firstAttribute="top" secondItem="mia-hT-YA6" secondAttribute="bottom" constant="40" id="D6w-Sy-RtD"/>
-                            <constraint firstItem="7yb-pR-oXV" firstAttribute="leading" secondItem="qfn-gT-Yld" secondAttribute="trailing" constant="8" id="H35-ry-OP5"/>
+                            <constraint firstItem="7yb-pR-oXV" firstAttribute="leading" secondItem="qfn-gT-Yld" secondAttribute="trailing" constant="8" id="H35-ry-OP5">
+                                <variation key="heightClass=regular-widthClass=regular" constant="8"/>
+                            </constraint>
                             <constraint firstItem="zwg-SU-MqW" firstAttribute="leading" secondItem="S2f-D5-AL6" secondAttribute="trailing" constant="8" id="Jy6-91-1CX"/>
                             <constraint firstItem="Mrw-fK-Jza" firstAttribute="top" secondItem="mia-hT-YA6" secondAttribute="bottom" constant="40" id="RTl-5Q-or3">
                                 <variation key="heightClass=regular-widthClass=regular" constant="50"/>
@@ -448,7 +455,9 @@
                             <constraint firstItem="vHU-YC-5hE" firstAttribute="leading" secondItem="7yb-pR-oXV" secondAttribute="trailing" constant="8" id="boi-df-7TW"/>
                             <constraint firstItem="mia-hT-YA6" firstAttribute="top" secondItem="43m-od-Ckp" secondAttribute="bottom" constant="18" id="gJx-BF-qqN"/>
                             <constraint firstItem="mia-hT-YA6" firstAttribute="trailing" secondItem="Xz0-j4-XuF" secondAttribute="trailingMargin" id="giG-wz-L4i"/>
-                            <constraint firstItem="qfn-gT-Yld" firstAttribute="top" secondItem="mia-hT-YA6" secondAttribute="bottom" constant="40" id="mNX-09-9c3"/>
+                            <constraint firstItem="qfn-gT-Yld" firstAttribute="top" secondItem="mia-hT-YA6" secondAttribute="bottom" constant="40" id="mNX-09-9c3">
+                                <variation key="heightClass=regular-widthClass=regular" constant="40"/>
+                            </constraint>
                             <constraint firstItem="S2f-D5-AL6" firstAttribute="leading" secondItem="vHU-YC-5hE" secondAttribute="trailing" constant="8" id="rBR-Hl-Vex"/>
                         </constraints>
                     </view>
@@ -797,7 +806,7 @@
         <image name="star" width="100" height="100"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="bMx-vY-pHV"/>
         <segue reference="9vw-sO-NSM"/>
-        <segue reference="UEI-xb-lHb"/>
     </inferredMetricsTieBreakers>
 </document>
